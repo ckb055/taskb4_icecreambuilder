@@ -2,7 +2,11 @@
   <div >
       <b-button variant="primary" @click="makeOrder()">
           Post Order
-          </b-button>
+        </b-button>
+
+      <b-button variant="primary" @click="viewOrders()">
+          View Orders
+        </b-button>  
   </div>
 </template>
 
@@ -12,6 +16,9 @@ export default {
   methods: {
       makeOrder() {
         this.$store.dispatch('sendOrder'); 
+      },
+      viewOrders() {
+          this.$router.push("/view-orders");
       },
   }
 }

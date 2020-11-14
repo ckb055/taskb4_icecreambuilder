@@ -7,9 +7,10 @@ export default {
         strawberryScoop : 0,
         chocolateSauce : 0,
         price : 0,
-        name : 'Tester',
-        email : 'Test@gmail.com',
-    }
+        name : 'AnotherTester',
+        email : 'AnotherFella@gmail.com',
+    },
+    orders: [],
   },
 
   mutations: {
@@ -29,5 +30,20 @@ export default {
                 // reload component
             })
     },
+
+    async getOrders({commit}) {
+        await axios.get('/orders.json')
+            .then(response => {
+                commit('setOrderList', response.data);
+            })
+            .catch(() => {
+                console.log("error!");
+            })
+            .finally(() => {
+                // allow component to be loaded
+            })
+            
+            
+    }
   },
 }

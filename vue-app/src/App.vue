@@ -1,19 +1,16 @@
 <template>
   <div id="app">
-    <ControlButtons/>
-    <b-button variant="primary">
-        yo
-    </b-button>
+
+    <router-view/>
   </div>
+
+
 </template>
 
 <script>
-import ControlButtons from './components/ControlButtons'
-
 export default {
   name: 'App',
   components: {
-    ControlButtons
   }
 }
 </script>
