@@ -9,8 +9,11 @@
                     <p> #{{ admin.id}} </p>
                   </el-col> -->
                   <el-col class="limit-width" :span="19" :offset="1">
-                    <p> {{ order }} </p>
-                    <p> {{ order.id }} </p>
+                    <p> Chocolate Sauce : {{ order.chocolateSauce }} </p>
+                    <p> Chocolate Scoop : {{ order.chocolateScoop }} </p>
+                    <p> Strawberry Scoop : {{ order.strawberryScoop }} </p>
+                    <p> Price : {{ order.price.toFixed(2) }} </p>
+                    <p> Ordered by : {{ order.name }} </p>
                   </el-col>
                   <b-button variant="danger" @click="deleteOrder(order.id)">
                         Delete Order
@@ -128,7 +131,7 @@
   }
   .infinite-list > li {
     width: 100%;
-    height: 200px;
+    height: 300px;
     margin-bottom: 16px;
     background-color: rgb(255, 220, 181);
     text-align:left;

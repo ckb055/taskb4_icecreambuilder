@@ -8,15 +8,28 @@ export default {
         strawberryScoop : 0,
         chocolateSauce : 0,
         price : 0,
-        name : 'BackTester1900',
-        email : 'BackTest@gmail.com',
+        name : '',
     },
     orders: [],
     isOrderPageLoading: false,
     isForceRerender: false,
+    isOrderSuccess: false,
   },
 
   mutations: {
+    setIcecreamFormName(state, value) {
+        state.icecreamForm.name = value;
+    },
+    
+    setForceRerenderFalse(state) {
+        state.isForceRerender = false;
+    },
+    closeSuccess(state) {
+        state.isOrderSuccess = false;
+    },
+    setOrderSuccess(state) {
+        state.isOrderSuccess = true;
+    },
     // force Rerender 
     forceRerender(state) {
         state.isForceRerender = true;
@@ -26,6 +39,7 @@ export default {
         state.icecreamForm.chocolateSauce = 0;
         state.icecreamForm.strawberryScoop = 0;
         state.icecreamForm.chocolateScoop = 0;
+        state.icecreamForm.price = 0;
     },
 
     setOrderList(state, payload) {
@@ -42,33 +56,43 @@ export default {
         state.isOrderPageLoading = payload;
     },
     resetOrderForm(state) {
-        state.icecreamForm.id += 1;
+        state.icecreamForm.chocolateScoop = 0;
+        state.icecreamForm.strawberryScoop = 0;
+        state.icecreamForm.chocolateSauce = 0;
+        state.icecreamForm.price = 0;
+        state.icecreamForm.name = '';
     },
     setOrderID(state, payload) {
         state.icecreamForm.id = payload;
     },
     addChocoScoop(state) {
         state.icecreamForm.chocolateScoop += 1;
+        state.icecreamForm.price += 1.1;
     },
     removeChocoScoop(state) {
         if (state.icecreamForm.chocolateScoop > 0) {
             state.icecreamForm.chocolateScoop -= 1;
+            state.icecreamForm.price -= 1.1;
         }
     },
     addStrawberryScoop(state) {
         state.icecreamForm.strawberryScoop += 1;
+        state.icecreamForm.price += 0.9;
     },
     removeStrawberryScoop(state) {
         if (state.icecreamForm.strawberryScoop > 0) {
             state.icecreamForm.strawberryScoop -= 1;
+            state.icecreamForm.price -= 0.9;
         }
     },
     addChocoSauce(state) {
         state.icecreamForm.chocolateSauce += 1;
+        state.icecreamForm.price += 0.6;
     },
     removeChocoSauce(state) {
         if (state.icecreamForm.chocolateSauce > 0) {
             state.icecreamForm.chocolateSauce -= 1;
+            state.icecreamForm.price -= 0.6;
         }
     },
   },
@@ -84,6 +108,7 @@ export default {
             })
             .finally(() => {
                 // reload component
+                commit('setOrderSuccess');
                 commit('resetOrderForm');
             })
     },

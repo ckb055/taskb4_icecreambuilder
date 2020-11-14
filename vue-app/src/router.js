@@ -23,7 +23,7 @@ export default new Router({
           title: "View Orders",
         },
         component: () =>
-          import(/* webpackChunkName: "home" */ "./views/OrderPage.vue"),
+          import(/* webpackChunkName: "home" */ "./views/OrderView.vue"),
     },
     {
         path: "/",

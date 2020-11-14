@@ -11,6 +11,7 @@
             <h3> Enter Post order when you are done. </h3>
             <h5> You can view all the orders made by everyone by pressing on </h5>
             <h5>    View Orders at the top-right corner of the page. </h5>
+            <h5> Total Price : {{ price.toFixed(2) }} </h5>
             <ControlButtons/>
         </div>
     </div>
@@ -28,6 +29,11 @@ export default {
   components: {
     ControlButtons,
     IcecreamBuilder
+  },
+  computed: {
+      price() {
+          return this.$store.state.ingredients.icecreamForm.price;
+      }
   },
   created() {
       this.$store.dispatch('getLatestOrderID');
