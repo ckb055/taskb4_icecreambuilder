@@ -1,8 +1,6 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-
+    <ControlButtons/>
     <b-button variant="primary">
         yo
     </b-button>
@@ -10,12 +8,12 @@
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import ControlButtons from './components/ControlButtons'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    ControlButtons
   }
 }
 </script>
