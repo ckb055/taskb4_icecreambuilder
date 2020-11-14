@@ -1,5 +1,6 @@
 <template>
     <div class="Icecream">
+        <h2 v-if="isEmpty">Your icecream is empty. Add some ingredients!</h2>
       <div class="ChocolateScoop" v-for="index in chocolateScoopCount" :key="index"/>  
     <div class="StrawberryScoop" v-for="index in strawberryScoopCount" :key="index"/>
 
@@ -31,6 +32,12 @@ export default {
       chocolateScoopCount() {
           return this.$store.state.ingredients.icecreamForm.chocolateScoop;
       },
+      isEmpty() {
+          return this.$store.state.ingredients.icecreamForm.chocolateSauce
+          + this.$store.state.ingredients.icecreamForm.strawberryScoop
+          + this.$store.state.ingredients.icecreamForm.chocolateScoop
+          === 0;
+      }
   },
   mounted() {
 

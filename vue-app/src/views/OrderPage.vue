@@ -10,8 +10,11 @@
                   </el-col> -->
                   <el-col class="limit-width" :span="19" :offset="1">
                     <p> {{ order }} </p>
+                    <p> {{ order.id }} </p>
                   </el-col>
- 
+                  <b-button variant="danger" @click="deleteOrder(order.id)">
+                        Delete Order
+                      </b-button>
               </el-card>
 
         </li>
@@ -49,7 +52,11 @@
       },
       loadMoreOrders () {
         this.count += 5
-      },  
+      }, 
+      deleteOrder(orderID) {
+          // console.log("delete called with id:", orderID);
+          this.$store.dispatch('removeOrder', { orderID : orderID});
+      }, 
     },
     mounted() {
       this.$store.dispatch('getOrders');
@@ -86,7 +93,7 @@
     width: 100%;
     height: 90px;
     margin-bottom: 16px;
-    background-color: white;
+    background-color: rgb(255, 220, 181);
     text-align:left;
     color: black;
     padding: 4px 16px;
@@ -121,12 +128,13 @@
   }
   .infinite-list > li {
     width: 100%;
-    height: 90px;
+    height: 200px;
     margin-bottom: 16px;
     background-color: rgb(255, 220, 181);
     text-align:left;
     color: black;
     padding: 4px 16px;
+    border:none;
   }
   .presentationCard .button {
     color: black;

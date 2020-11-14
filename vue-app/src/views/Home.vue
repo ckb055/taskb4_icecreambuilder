@@ -1,6 +1,8 @@
 <template>
   <div class="background">
+      <br>
     <h1>Welcome to the Icecream Builder!</h1>  
+    <br>
     <div class="landscape">
     
     <IcecreamBuilder/>
