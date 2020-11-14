@@ -20,6 +20,7 @@ export default {
     setCurrentEditID(state, value) {
         state.icecreamForm.id = value;
     },
+    
     setIcecreamFormName(state, value) {
         state.icecreamForm.name = value;
     },
