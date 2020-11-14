@@ -17,10 +17,24 @@ export default {
   },
 
   mutations: {
+    setCurrentEditID(state, value) {
+        state.icecreamForm.id = value;
+    },
     setIcecreamFormName(state, value) {
         state.icecreamForm.name = value;
     },
-    
+    setIcecreamFormChocolateScoop(state, value) {
+        state.icecreamForm.chocolateScoop = value;
+        state.icecreamForm.price += value * 1.1;
+    },
+    setIcecreamFormStrawberryScoop(state, value) {
+        state.icecreamForm.strawberryScoop = value;
+        state.icecreamForm.price += value * 0.9;
+    },
+    setIcecreamFormChocolateSauce(state, value) {
+        state.icecreamForm.chocolateSauce = value;
+        state.icecreamForm.price += value * 0.6;
+    },
     setForceRerenderFalse(state) {
         state.isForceRerender = false;
     },
@@ -163,6 +177,23 @@ export default {
                 commit('forceRerender');
             })      
     },
+
+    async submitEdit({state, commit}, {orderID}) {
+        // console.log(state.icecreamForm);
+        await axios.put(`/orders/${orderID}.json`, state.icecreamForm)
+            .then(() => {
+                console.log("edit success!");
+            })
+            .catch(() => {
+                console.log("error at edit!");
+            })
+            .finally(() => {
+                // allow component to be loaded
+                // commit('setOrderPageLoading', false);
+                commit('resetOrderForm');
+                commit('forceRerender');
+            }) 
+    }
 
   },
 }

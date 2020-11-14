@@ -15,10 +15,34 @@
                     <p> Price : {{ order.price.toFixed(2) }} </p>
                     <p> Ordered by : {{ order.name }} </p>
                   </el-col>
+                  <b-button variant="warning" @click="editOrder(order.id)">
+                        Edit Order
+                      </b-button>
                   <b-button variant="danger" @click="deleteOrder(order.id)">
                         Delete Order
                       </b-button>
               </el-card>
+              <b-modal id="isEditPopup" title="Edit Order" 
+                :visible.sync="isEditPopup" width="30%" center
+                        hide-footer>
+                            <h4>Edit your order</h4>
+                          <b-form-input v-model="name" placeholder="Your name"></b-form-input>
+                          <br>
+                          Enter amount of chocolate scoops
+                          <b-form-input v-model="chocolateScoop" placeholder="Enter amount of chocolate scoops"></b-form-input>
+                          <br>
+                          Enter amount of strawberry scoops
+                         
+                          <b-form-input v-model="strawberryScoop" placeholder="Enter amount of strawberry scoops"></b-form-input>
+                          <br>
+                          Enter amount of chocolate sauce
+                      
+                          <b-form-input v-model="chocolateSauce" placeholder="Enter amount of chocolate sauce"></b-form-input>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-primary" v-on:click="submitEdit()">Confirm</button>
+                              <button type="button" class="btn btn-secondary" v-on:click="isEditPopup = false" data-dismiss="modal">Close</button>
+                            </div>
+                </b-modal>
 
         </li>
       </ul>
@@ -32,8 +56,8 @@
     data() {
       return {
         show: false,
-        removeMemberPopup: false,
-        demoteAdminPopup: false,
+        isEditPopup: false,
+        currentID: '',
         count: 0,
         updateList: 0,
       }
@@ -42,6 +66,38 @@
 
     },
     computed: {
+        name: {
+            get() {
+                return this.$store.state.ingredients.icecreamForm.name;
+            },
+            set(value) {
+                this.$store.commit('setIcecreamFormName', value);
+            },
+        },
+        chocolateScoop: {
+            get() {
+                return this.$store.state.ingredients.icecreamForm.chocolateScoop;
+            },
+            set(value) {
+                this.$store.commit('setIcecreamFormChocolateScoop', value);
+            },
+        },
+        strawberryScoop: {
+            get() {
+                return this.$store.state.ingredients.icecreamForm.strawberryScoop;
+            },
+            set(value) {
+                this.$store.commit('setIcecreamFormStrawberryScoop', value);
+            },
+        },
+        chocolateSauce: {
+            get() {
+                return this.$store.state.ingredients.icecreamForm.chocolateSauce;
+            },
+            set(value) {
+                this.$store.commit('setIcecreamFormChocolateSauce', value);
+            },
+        },
         isLoading() {
             return this.$store.state.ingredients.isOrderPageLoading;
         },
@@ -50,6 +106,14 @@
         },
     },
     methods: {
+      submitEdit() {
+        this.$store.dispatch('submitEdit', {orderID : this.currentID});
+      },
+      editOrder(orderID) {
+        this.currentID = orderID;
+        this.isEditPopup = true;
+        this.$store.commit('setCurrentEditID', orderID);
+      },
       loadOrders() {
         this.show = true;
       },
